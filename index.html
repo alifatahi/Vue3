@@ -4,31 +4,45 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <script src="https://unpkg.com/vue@3"></script>
+    <style>
+        html, body{
+            height: 100%;
+        }
+
+        body {
+            display: grid;
+            place-items: center;
+        }
+        .text-red{
+            color: red;
+        }
+        .text-green{
+            color: green;
+        }
+    </style>
 </head>
 <body>
     
     <div id="app">
-      <p>
-        <input type="text" v-model="greeting">
-      </p>
-      <p>
-        {{ greeting }} ({{ greeting.length }})
-      </p>  
+        <!-- : is shorthand = v-bind + @ is shorthand = v-on-->
+        <button :class="active ? 'text-red' : 'text-green' " @click="toggle">Click Me</button>
     </div>
 
 
     <script>
-        // Vue has access to this child element(app)
         Vue.createApp({
-            data(){//Bind Data from component to element in html
-                return {
-                    greeting: 'Hello World'
+            data(){
+                return{
+                    // we bind class active which has 2 class option(green, red)
+                    active: false
                 };
             },
-            mounted(){//is Fire when Component mounts the page load like set alert or like here change value
-                setTimeout(()=>{
-                    this.greeting = 'Changed'
-                },3000)
+            methods: {
+                // on click button we call toggle method which check status of button class
+                // if active then class red other wise green
+                toggle(){
+                    this.active = ! this.active;
+                }
             }
         }).mount('#app');
     </script>
